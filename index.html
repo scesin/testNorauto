@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulación Evento logged_in - Genesys Journey</title>
+</head>
+<body>
+  <h1>Simulación de Evento logged_in</h1>
+  <p>Su Compra se ha realizado correctamente</p>
+<script>
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments);
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.ie/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod-euw1',
+    deploymentId: '812c27f3-9bb0-4dff-95c1-dea046d997dc'
+  });
+
+Genesys("command", "Database.set", {
+    messaging: {
+      customAttributes: {
+        Name: "Sthefany",
+        Email: "sthefany@gmail.com"
+      }
+    }
+  });
+  
+  // Espera a que Journey esté listo
+  Genesys("subscribe", "Journey.ready", function () {
+    console.log("Journey plugin is ready");
+
+    // Tracking de inactividad
+    Genesys("command", "Journey.trackIdleEvents", {
+      idleEvents: [
+        { idleAfterSeconds: 90, eventName: "idle_90_seconds" }
+      ]
+    });
+  
+  // ⚠️ Guarda los datos del login en una variable global para poder usarla luego
+  window.userLoginData = {
+    eventName: "logged_in",
+    customAttributes: {
+      givenName: "Sthefany",
+      familyName: "Cesin",
+      email: "sthefany@gmail.com"
+    },
+    traitsMapper: [
+      { "fieldName": "givenName" },
+      { "fieldName": "familyName" },
+      { "fieldName": "email" }
+    ]
+  };
+
+
+
+    // ✅ Registrar evento logged_in una vez Journey esté listo
+    if (window.userLoginData) {
+      Genesys("command", "Journey.record", window.userLoginData);
+    }
+  });
+</script>
+
+
+</body>
+</html>
