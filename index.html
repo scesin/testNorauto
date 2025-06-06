@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Simulación Evento logged_in - Genesys Journey</title>
+  <title>Página de pruebas Norauto - Genesys</title>
 </head>
 <body>
   <h1>Bienvenidos a Norauto</h1>
@@ -67,10 +67,10 @@
     }
   });
 
-  // Puedes añadir aquí funcionalidad para el botón de compra
+  // Modificar evento click para redirigir a otra URL
   document.getElementById('buyButton').addEventListener('click', function() {
-    alert('¡Compra realizada!');
-    // Aquí puedes agregar lógica para cuando el usuario compra
+    // Redirigir a la página de confirmación
+    window.location.href = '/compraconfirmada';
   });
 </script>
 
