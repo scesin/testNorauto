@@ -8,5 +8,28 @@
   <h1>¡Compra Confirmada!</h1>
   <p>Gracias por su compra.</p>
   <a href="/">Volver al inicio</a>
+
+  <script>
+    (function (g, e, n, es, ys) {
+      g['_genesysJs'] = e;
+      g[e] = g[e] || function () {
+        (g[e].q = g[e].q || []).push(arguments);
+      };
+      g[e].t = 1 * new Date();
+      g[e].c = es;
+      ys = document.createElement('script');
+      ys.async = 1;
+      ys.src = n;
+      ys.charset = 'utf-8';
+      document.head.appendChild(ys);
+    })(window, 'Genesys', 'https://apps.mypurecloud.ie/genesys-bootstrap/genesys.min.js', {
+      environment: 'prod-euw1',
+      deploymentId: '812c27f3-9bb0-4dff-95c1-dea046d997dc'
+    });
+
+    Genesys("subscribe", "Journey.ready", function () {
+      console.log("Journey plugin is ready on compra confirmada");
+    });
+  </script>
 </body>
 </html>
